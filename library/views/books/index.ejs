@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>อะไรดี</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+      <%- include('../manu') %>
+      <div class="py-2">
+        <a href="books/add" class="btn btn-primary">เพิ่มหนังสือ</a>
+      </div>
+      <hr>
+      <h2><%= data %></h2>
+      <p>
+        <%= BookList %>
+        <% Object.values(BookList).forEach(function(item){ %>
+            <h3><%= item.title %></h3>
+        <% }) %>
+      </p>
+  </body>
+</html>

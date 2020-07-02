@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>อะไรดี</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+      <%- include('../manu') %>
+      <div class="py-2">
+        <a href="/" class="btn btn-success">กลับหน้าแรก</a>
+      </div>
+      <hr>
+      <h2><%= data %></h2>
+      <form action="/books/add" method="POST">
+
+          <div class="form-group">
+            <label for="">ชื่อหนังสือ</label>
+            <input type="text" name="title" class="form-control" id="">
+          </div>
+
+          <div class="form-group">
+            <label for="">ผู้แต่ง</label>
+            <input type="text" name="author" class="form-control" id="">
+          </div>
+
+          <div class="form-group">
+            <label for="">หมวดหมู่</label>
+            <select name="category" id="" class="form-control">
+                <option value="นิยาย">นิยาย</option>
+                <option value="การศึกษา">การศึกษา</option>
+            </select>
+          </div>
+          <input type="submit" class="btn btn-primary" name="" id="" value="บันทึก">
+
+      </form>
+  </body>
+</html>
