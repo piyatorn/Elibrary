@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>อะไรดี</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
+  </head>
+  <body>
+      <%- include('../manu') %>
+      <br>
+      <h2><%= data %></h2>
+      <% if (locals.errors) { %>
+        <ul class="alert alert-danger">
+            <% Object.values(errors).forEach(function(error){ %>
+                  <li class="mx-3"><%= error.msg %></li>
+            <% }); %>
+        </ul>
+      <% } %>
+
+      <form action="/books/update" method="POST">
+
+        <div class="form-group">
+            <label for="">รหัสหนังสือ</label>
+            <input type="text" name="code" class="form-control" id="" value="<%= book.code %>">
+          </div>
+
+          <div class="form-group">
+            <label for="">ชื่อหนังสือ</label>
+            <input type="text" name="title" class="form-control" id="" value="<%= book.title %>">
+          </div>
+
+          <div class="form-group">
+            <label for="">ผู้แต่ง</label>
+            <input type="text" name="author" class="form-control" id="" value="<%= book.author %>">
+          </div>
+
+          <div class="form-group">
+            <label for="">หมวดหมู่</label>
+            <select name="category" id="" class="form-control">
+                <option value="นิยาย"
+                  <% if(book.category == "นิยาย") { %>
+                      selected
+                  <% } %>
+                >นิยาย</option>
+                <option value="การศึกษา"
+                <% if(book.category == "การศึกษา") { %>
+                    selected
+                <% } %>
+                >การศึกษา</option>
+            </select>
+
+            <input type="hidden" name="id" value="<%= book._id%>">
+          </div>
+
+          <div class="form-group col-md-2 _pl_0">
+            <label for="">จำนวน(เล่ม)</label>
+            <input type="number" name="total_books" min="0" class="form-control" id="" value="<%= book.total_books %>">
+          </div>
+
+          <input type="submit" class="btn btn-success" name="" id="" value="แก้ไขข้อมูล">
+
+      </form>
+  </body>
+</html>

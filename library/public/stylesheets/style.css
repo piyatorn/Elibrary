@@ -6,3 +6,35 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+.table thead tr._center{
+  text-align:center;
+}
+
+._width_icon{
+  width:3rem;
+  text-align:center;
+}
+
+
+i._fs_icon{
+  font-size: 1.4rem;
+}
+
+span.navbar-text._manu_name{
+  color:#fff;
+}
+
+._manu_name span{
+  font-size: 1.3rem;
+}
+
+._mr_2{
+  margin-right:2rem;
+}
+
+
+.form-group._pl_0{
+  padding-left:0px;
+}

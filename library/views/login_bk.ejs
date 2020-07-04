@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%- include('manu') %>
+    <form action="/auth/login" method="POST" style="padding-top: 1rem;" >
+      
+        <div class="form-group row">
+           <label for="username" class="col-sm-2 col-form-label">หมายเลขบัตรประชาชน</label>
+            <div class="col-sm-2">
+              <input type="text" name="username" class="form-control"  maxlength="13" id="username" required>
+              <div class="invalid-feedback">
+                 โปรดระบุ
+               </div>
+            </div>
+           
+          </div>
+          <div class="form-group row">
+              <label for="password"  class="col-sm-2 col-form-label">รหัสผ่าน</label>
+              <div class="col-sm-2">
+                  <input type="password" name="password" maxlength="20" class="form-control" id="password"  aria-describedby="passwordHelpBlock" required>
+                  <div class="invalid-feedback">
+                      โปรดระบุ
+                  </div>
+              </div>
+          </div>
+
+          <input type="submit" class="btn btn-primary" name="" id="" value="ลงทะเบียน">
+        <!-- <button type="submit" class="btn btn-primary">ลงทะเบียน</button> -->
+      </form>
+
+  </body>
+</html>

@@ -3,15 +3,30 @@
   <head>
     <title>อะไรดี</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
   </head>
   <body>
       <%- include('../manu') %>
-      <div class="py-2">
+      <br>
+      <!-- <div class="py-2">
         <a href="/" class="btn btn-success">กลับหน้าแรก</a>
       </div>
-      <hr>
+      <hr> -->
       <h2><%= data %></h2>
+      <% if (locals.errors) { %>
+        <ul class="alert alert-danger">
+            <% Object.values(errors).forEach(function(error){ %>
+                  <li class="mx-3"><%= error.msg %></li>
+            <% }); %>
+        </ul>
+      <% } %>
+
       <form action="/books/add" method="POST">
+
+        <div class="form-group">
+          <label for="">รหัสหนังสือ</label>
+          <input type="text" name="code" class="form-control" id="">
+        </div>
 
           <div class="form-group">
             <label for="">ชื่อหนังสือ</label>
@@ -30,7 +45,13 @@
                 <option value="การศึกษา">การศึกษา</option>
             </select>
           </div>
-          <input type="submit" class="btn btn-primary" name="" id="" value="บันทึก">
+
+          <div class="form-group col-md-2 _pl_0">
+            <label for="">จำนวน(เล่ม)</label>
+            <input type="number" name="total_books" min="0" class="form-control" id="">
+          </div>
+
+          <input type="submit" class="btn btn-success" name="" id="" value="เพิ่มข้อมูล">
 
       </form>
   </body>
