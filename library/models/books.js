@@ -34,7 +34,7 @@ const booksSchema = new Schema({
         type:String,
         required:true
     }
-    , total_books:{
+    , all_books:{
         type:Number,
         required:true
     } 
@@ -56,7 +56,7 @@ module.exports.updateBook = function(EditBooks,callback){
             title:EditBooks.title,
             author:EditBooks.author,
             category:EditBooks.category,
-            total_books:EditBooks.total_books
+            all_books:EditBooks.all_books
         }
     },{new : true},callback)
 }

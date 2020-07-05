@@ -5,14 +5,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-//require('../models/books');
-
 // ระบุตำแหน่ง  
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var booksRouter = require('./routes/books');
-//var register = require('./routes/register');
-//var login = require('./routes/login');
 var session = require('express-session')
 const bcrypt = require('bcrypt');
 const passport = require('passport')
@@ -20,9 +16,14 @@ const LocalStrategy = require('passport-local').Strategy
 
 const User = require('./models/user');
 
+// <=---------------------------- Begin User ----------------------------=>
 //User.findOne() เพื่อหา username ใน DB
 passport.use(new LocalStrategy((username,password,cb) => {
-    User.findOne({ username }, (err, user) => {
+    User.findOne({username, //username 
+      $or:[{
+        'is_active':true
+      }]
+    }, (err, user) => {
       if (err) {
         return cb(err);
       }
@@ -54,6 +55,8 @@ passport.deserializeUser((id,cb) => {
     cb(null, user)  // ถ้าเจอ = ผ่าน
   })
 });
+// <=---------------------------- End User ----------------------------=>
+
 
 var app = express();
 

@@ -1,58 +1,70 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>อะไรดี</title>
+    <title>ระบบฐานข้อมูลห้องสมุด</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
   </head>
   <body>
       <%- include('../manu') %>
       <br>
-      <!-- <div class="py-2">
-        <a href="/" class="btn btn-success">กลับหน้าแรก</a>
-      </div>
-      <hr> -->
+      <!-- Begin Title -->
       <h2><%= data %></h2>
+      <!-- End Title -->
+      <!-- Begin Validate Description -->
       <% if (locals.errors) { %>
         <ul class="alert alert-danger">
             <% Object.values(errors).forEach(function(error){ %>
-                  <li class="mx-3"><%= error.msg %></li>
+                <li class="mx-3"><%= error.msg %></li>
             <% }); %>
         </ul>
       <% } %>
-
+      <!-- End Validate Description -->
+      <% if(user.is_admin){ %>
+      <!-- Begin Form -->
       <form action="/books/add" method="POST">
-
+        <!-- Begin Code -->
         <div class="form-group">
           <label for="">รหัสหนังสือ</label>
           <input type="text" name="code" class="form-control" id="">
         </div>
-
+        <!-- End Code -->
+        <!-- Begin Name -->
           <div class="form-group">
             <label for="">ชื่อหนังสือ</label>
             <input type="text" name="title" class="form-control" id="">
           </div>
-
+        <!-- End Name -->
+        <!-- Begin Author -->
           <div class="form-group">
             <label for="">ผู้แต่ง</label>
             <input type="text" name="author" class="form-control" id="">
           </div>
-
+        <!-- End Author -->
+        <!-- Begin Category -->
           <div class="form-group">
             <label for="">หมวดหมู่</label>
-            <select name="category" id="" class="form-control">
-                <option value="นิยาย">นิยาย</option>
-                <option value="การศึกษา">การศึกษา</option>
+             <select class="form-control" name="category">
+                <% if(CategoryList){ %>
+                  <% CategoryList.forEach(function(item){ %>
+                    <option value=""><%= item.title %></option>
+                  <% }); %>
+                <% }else{ %>
+                  <option value="">เลือก</option>
+                <% } %>
             </select>
           </div>
-
+          <!-- End Category -->
+          <!-- Begin Amount -->
           <div class="form-group col-md-2 _pl_0">
             <label for="">จำนวน(เล่ม)</label>
-            <input type="number" name="total_books" min="0" class="form-control" id="">
+            <input type="number" name="all_books" min="0" class="form-control" id="">
           </div>
-
+          <!-- End Amount -->
           <input type="submit" class="btn btn-success" name="" id="" value="เพิ่มข้อมูล">
 
       </form>
+      <!-- End Form -->
+      <% } %>
   </body>
 </html>

@@ -14,9 +14,11 @@
   <body>
     
     <h1><%= title %></h1>
-   
+      <!-- Begin Form -->
       <form action="/auth/register" method="POST" class="needs-validation" novalidate> 
+        <!-- Begin Line #1 -->
         <div class="form-row">
+          <!-- Begin Fullname -->
           <div class="col-md-6 mb-3">
             <label for="fullname">ชื่อ - นามสกุล</label>
             <input type="text" name="fullname" class="form-control" id="fullname" required>
@@ -24,6 +26,8 @@
                โปรดระบุ
             </div>
           </div>
+          <!-- End Fullname -->
+          <!-- Begin Telephone -->
           <div class="col-md-6 mb-3">
             <label for="tel">เบอร์มือถือ</label>
             <input type="text" name="tel" class="form-control" id="tel" required>
@@ -31,9 +35,13 @@
                 โปรดระบุ
             </div>
           </div>
+          <!-- End Telephone -->
         </div>
+        <!-- End Line #1 -->
 
+        <!-- Begin Line #2 -->
         <div class="form-row">
+          <!-- Begin CardID -->
           <div class="col-md-6 mb-3">
             <label for="username">หมายเลขบัตรประชาชน</label>
             <input type="text" name="username" class="form-control" id="username" required>
@@ -41,23 +49,26 @@
                 โปรดระบุ
             </div>
           </div>
+          <!-- End CardID -->
+          <!-- Begin Gender -->
           <div class="col-md-3 mb-3">
             <label for="gender">เพศ</label>
             <select class="custom-select" name="gender" id="gender" required>
               <option selected disabled value="">เลือก</option>
               <option value="ชาย">ชาย</option>
               <option value="หญิง">หญิง</option>
-              <option value="อื่น ๆ">อื่น ๆ</option>
             </select>
             <div class="invalid-feedback">
                 โปรดระบุ
             </div>
           </div>
-
+          <!-- End Gender -->
         </div>
+        <!-- End Line #2 -->
 
-
+        <!-- Begin Line #3 -->
         <div class="form-row">
+          <!-- Begin Password -->
           <div class="col-md-3 mb-3">
             <label for="password">รหัสผ่าน</label>
             <input type="password"  name="password" id="password" maxlength="20" class="form-control" aria-describedby="passwordHelpBlock" required>
@@ -67,22 +78,16 @@
             <div class="invalid-feedback">
                 โปรดระบุ
             </div>
-<!-- 
-            <label for="validationCustom05">รหัสผ่าน</label>
-            <input type="text" class="form-control" id="validationCustom05" required>
-            <div class="invalid-feedback">
-                โปรดระบุ
-            </div> -->
           </div>
-
+          <!-- End Password -->
         </div>
+        <!-- End Line #3 -->
         <button type="submit" class="btn btn-success _mr_2">ลงทะเบียน</button>
         <button onclick="goBack()" class="btn btn-primary">มีบัญชีแล้ว ?</button>
       </form>
-
+      <!-- End Form -->
 
       <script>
-
       function goBack() {
         window.history.back();
       }

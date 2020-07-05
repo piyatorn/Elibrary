@@ -38,3 +38,20 @@ span.navbar-text._manu_name{
 .form-group._pl_0{
   padding-left:0px;
 }
+
+._r_txt_search{
+  display:flex;
+  justify-content:flex-end;
+}
+
+._min_w_60{
+  min-width:60%;
+}
+
+.table.table-bordered thead tr th{
+  background-color: #d6cae8;
+}
+
+._cp{
+  cursor: pointer;
+}

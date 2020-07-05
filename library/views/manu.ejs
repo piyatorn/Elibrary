@@ -9,10 +9,11 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#7952b3">
- 
+<!-- Begin NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#835fb9">
+    <!-- Begin Login/Logout -->
     <% if (user._id) { %>
-    <a class="navbar-brand" href="/logout">ออกจากระบบ</a>
+    <a class="navbar-brand" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> ออกจากระบบ</a>
     <% } %>
     <% if (!user._id) { %>
     <a class="navbar-brand" href="/login">เข้าสู่ระบบ</a>
@@ -20,23 +21,52 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+    <!-- End Login/Logout -->
+    <!-- Begin Manu -->
     <div class="collapse navbar-collapse" id="navbarNav">
+
       <ul class="navbar-nav mr-auto">
+        <!-- Begin Books List -->
         <li class="nav-item active">
-          <a class="nav-link" href="/books">รายการหนังสือ<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/books"><i class="fa fa-list" aria-hidden="true"></i> รายการหนังสือ<span class="sr-only">(current)</span></a>
+        </li>
+        <!-- End Books List -->
+        <% if (!user.is_admin) { %>
+        <!-- Begin Borrow Books -->
+        <li class="nav-item">
+          <a class="nav-link text-white _cp" data-target="#ModalBooks" data-toggle="modal">รายการยืม 
+            <% if(bookshelf){ %>
+            <i class="fa fa-exclamation text-danger _fs_icon"></i>
+            <% } %>
+          </a>
+        </li>
+        <!-- End Borrow Books -->
+        <!-- Begin Return Books -->
+        <li class="nav-item">
+          <a class="nav-link text-white _cp" data-target="#ModalBooksReturn" data-toggle="modal">รายการคืน
+          </a>
+        </li>
+        <!-- End Return Books -->
+        <% } %>
+
+        <!-- Begin Add Book -->
+        <% if (user.is_admin) { %>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="books/add"><i class="fa fa-plus-circle" aria-hidden="true"></i> เพิ่มหนังสือ</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="books/add">ยืมหนังสือ</a>
+          <a class="nav-link text-white" href="books/addCategory"><i class="fa fa-plus-circle" aria-hidden="true"></i> เพิ่มหมวดหมู่</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="books/add">คืนหนังสือ</a>
-        </li>
+        <% } %>
+        <!-- End Add Book -->
       </ul>
+      <!-- Begin Name User -->
       <span class="navbar-text _manu_name">
         สวัสดี <span><%= user.fullname %></span>
       </span>
+      <!-- End Name User -->
     </div>
+    <!-- End Manu -->
   </nav>
+  <!-- End NavBar -->

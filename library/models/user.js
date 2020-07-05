@@ -12,6 +12,7 @@ const userSchema = new Schema({
   password: String,
   gender:String,
   tel:String,
+  is_admin:Boolean,
   is_active:Boolean 
 }, { timestamps: { type: Date, default: Date.now} })
 

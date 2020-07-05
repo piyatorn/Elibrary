@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>อะไรดี</title>
+    <title>ระบบฐานข้อมูลห้องสมุด</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
   </head>
   <body>
       <%- include('../manu') %> 
       <br>
-     
-      <h3><%= data %></h3>
-      <!-- <p>
-        <% Object.values(BookList).forEach(function(item){ %>
-            <h4><b>ชื่อหนังสือ : </b><%= item.title %></h4>
-            <b><p>ผู้แต่ง</b> : <%= item.author %></p>
-            <b><p>หมวดหมู่</b> : <%= item.category %></p>
-            <a href="/books/edit/<%= item._id %>">แก้ไข</a>
-            <a href="/books/delete/<%= item._id %>" onclick="return confirm('ต้องการลบหรือไม่ ?')">ลบ</a>
-            <hr>
-        <% }) %>
-      </p> -->
-
+      <!-- Begin form -->
+      <div class="form-row">
+        <!-- Begin Title -->
+        <div class="col-md-6 mb-3">
+          <h3><%= data %></h3>
+        </div> 
+        <!-- End Title -->
+        <!-- Begin Search -->
+        <div class="col-md-6 mb-3 _r_txt_search">
+          <form class="form-inline my-2 my-lg-0" action="/books/show/" method="get">
+            <input class="form-control mr-sm-2" name="title" type="search" placeholder="ค้นหา" aria-label="Search">
+            <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+          </form>
+        </div>
+        <!-- End Search -->
+      </div>
+      <!-- End form -->
+      <!-- Begin table -->
       <table class="table table-bordered table-striped">
         <thead>
           <tr class="_center">
@@ -30,8 +35,16 @@
             <th scope="col">ผู้แต่ง</th>
             <th scope="col">หมวดหมู่</th>
             <th class="_width_icon" scope="col">จำนวน(เล่ม)</th>
+            <th class="_width_icon" scope="col">คงเหลือ(เล่ม)</th>
+            <!-- Begin Icon -->
+            <% if(!user.is_admin){ %>
+            <th class="_width_icon" scope="col">ยืม</th>
+            <% } %>
+            <% if(user.is_admin){ %>
             <th class="_width_icon" scope="col">แก้ไข</th>
             <th class="_width_icon" scope="col">ลบ</th>
+            <% } %>
+            <!-- End Icon -->
           </tr>
         </thead>
         <tbody>
@@ -41,20 +54,177 @@
               <td><%= item.code %></td>
               <td><%= item.title %></td>
               <td><%= item.author %></td>
-              <td><%= item.category %></td>
-              <td class="text-center"><%= item.total_books %></td>
+              <td><%= item.category %></td> 
+              <td class="text-center"><%= item.all_books %></td>
+              <td class="text-center"><%= item.all_books %></td>
+              <!-- Begin Icon -->
+              <% if(!user.is_admin){ %>
+              <% if(item.all_books > 0){ %>
+                <!-- Begin Icon Borrow -->
+                  <td class="text-center">
+                    <form class="form-group" action="/books/borrow/" method="post">
+                      <input type="hidden" name="book_id" value="<%=item._id%>">
+                      <input type="submit" id="borrow_book" name="borrow_book" value="ยืม" class="btn btn-success">
+                    </form>
+                  </td>
+                  <% } else{ %>  
+                  <td>&nbsp;</td>
+                  <% } %>
+                <% } %>
+                <!-- End Icon Borrow -->
+              <!-- Begin Icon Edit / Delete -->    
+              <% if(user.is_admin){ %>
               <td class="text-center"><a href="/books/edit/<%= item._id %>"><i class="fa fa-plus-circle _fs_icon"></i></a></td>
               <td class="text-center">
                 <a href="/books/delete/<%= item._id %>"  onclick="return confirm('ต้องการลบหรือไม่ ?')">
                   <i class="fa fa-trash _fs_icon text-danger"></i>
                 </a>
               </td> 
+              <% } %>
+               <!-- End Icon Edit / Delete -->    
+               <!-- End Icon -->
             </tr>
             <% }) %>
         </tbody>
       </table>
+      <!-- End Table -->
+      
 
-      <hr>
+
+      <!-- Begin Modal Borrow -->
+      <div class="modal fade" id="ModalBooks" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable _min_w_60">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- Begin Title -->    
+              <h5 class="modal-title" id="staticBackdrop">รายการยืม</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <!-- End Title -->    
+            </div>
+            <div class="modal-body">
+              <!-- Begin Table --> 
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr class="_center">
+                    <th scope="col">ลำดับ</th>
+                    <th scope="col">รหัสหนังสือ</th>
+                    <th scope="col">ชื่อหนังสือ</th>
+                    <th class="_width_icon" scope="col">จำนวนที่ยืม(เล่ม)</th>
+                    <th class="_width_icon" scope="col">ลบ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(bookshelf){ %>
+                    <% Object.values(bookshelf).forEach(function(item,index){ %>
+                    <tr>
+                      <th class="_width_icon" scope="row"><%= (index)+1 %></th>
+                      <td><%= item.code %></td>
+                      <td><%= item.title %></td>
+                      <td class="text-center"><%= item.qty %></td>
+                      <!-- Begin Icon Delete -->    
+                      <td class="text-center">
+                        <a onclick="fn_remove('<%= JSON.stringify(item.id) %>')">
+                          <i class="fa fa-trash _fs_icon text-danger"></i>
+                        </a>
+                      </td> 
+                      <!-- End Icon Delete -->    
+                    </tr>
+                    <% }) %>
+                  <% } %>
+                </tbody>
+              </table>
+              <!-- End Table --> 
+            </div>
+            <!-- Begin Footer --> 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">เลือกต่อ</button>
+                <% if(bookshelf){ %>
+                <form action="/books/cf_borrow" method="POST">
+                  <input type="submit" class="btn btn-success" name="" id="" value="ยืนยันบันทึกยืมหนังสือ">
+                </form>
+              <% } %>
+            </div>
+            <!-- End Footer --> 
+          </div>
+        </div>
+      </div>
+      <!-- End Modal Borrow -->
+
+
+<!-- ===================================== -->
+
+      
+      <!-- Begin Modal Return -->
+      <div class="modal fade" id="ModalBooksReturn" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropRe" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable _min_w_60">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- Begin Title -->
+              <h5 class="modal-title" id="staticBackdropRe">รายการคืน</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <!-- End Title -->
+            </div>
+            <div class="modal-body">
+
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr class="_center">
+                    <th scope="col">ลำดับ</th>
+                    <th scope="col">รหัสหนังสือ</th>
+                    <th scope="col">ชื่อหนังสือ</th>
+                    <th class="_width_icon" scope="col">จำนวนที่ยืม(เล่ม)</th>
+                    <th class="_width_icon" scope="col">คืน</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(bookshelf){ %>
+                    <% Object.values(bookshelf).forEach(function(item,index){ %>
+                    <tr>
+                      <th class="_width_icon" scope="row"><%= (index)+1 %></th>
+                      <td><%= item.code %></td>
+                      <td><%= item.title %></td>
+                      <td class="text-center"><%= item.qty %></td>
+                      <!-- Begin Icon Delete -->   
+                      <td class="text-center">
+                        <a href="/books/return/<%= item._id %>"  onclick="return confirm('ยืนยันการคืน '+<%= item.title %>+')">
+                          <i class="fa fa-share _fs_icon text-danger"></i>
+                        </a>
+                      </td>
+                      <!-- End Icon Delete -->    
+                    </tr>
+                    <% }) %>
+                  <% } %>
+                </tbody>
+              </table>
+              
+            </div>
+            <!-- Begin Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+            </div>
+            <!-- End Footer -->
+          </div>
+        </div>
+      </div>
+      <!-- End Modal Return -->
+
+
+
+      <!-- ===================================== -->
+      <script>
+        function fn_remove(id){
+          console.log(id);
+        }
+         var bookshelf = "<%- bookshelf %>";
+         
+         if(bookshelf){
+            $("#ModalBooks").modal('show');
+         }
+      </script>
 
   </body>
 </html>

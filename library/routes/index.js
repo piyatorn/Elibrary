@@ -22,7 +22,8 @@ router.get('/login', (req, res) => {
   res.render('login', { message: '',user:'' });
 })
 
-router.get('/logout',(req,res) => {
+
+router.get('/logout',isLoggedIn,(req,res) => {
   req.logout();  // function ของ passport
   res.render('login', { user:'' });
   //res.redirect('/');

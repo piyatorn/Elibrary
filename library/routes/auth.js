@@ -21,6 +21,7 @@ router.post('/register',async  (req, res) => {
     password: passwordHash,
     gender,
     tel,
+    is_admin:false,
     is_active:true
   })
   await user.save()
@@ -38,6 +39,7 @@ router.post('/login',passport.authenticate('local',{
   const { username, password } = req.body;
   return res.redirect("/");
 });
+
 
 // router.post('/login',async (req, res) => {
 //   const { username, password } = req.body
