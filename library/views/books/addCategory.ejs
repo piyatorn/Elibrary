@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ระบบฐานข้อมูลห้องสมุด</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
+  </head>
+  <body>
+      <%- include('../manu') %>
+      <br>
+      <!-- Begin Title -->
+      <div class="form-row">
+        <!-- Begin Title -->
+        <div class="col-md-2 mb-2">
+          <h3><%= data %></h3>
+        </div> 
+        <!-- End Title -->
+        <!-- Begin Search -->
+        <div class="col-md-6 mb-3">
+          <button type="button" onclick="fn_add()" class="btn btn-success" name="" id="" value=""><i class="fa fa-plus" aria-hidden="true"></i> เพิ่ม</button>
+        </div>
+        <!-- End Search -->
+      </div>
+      <!-- End Title -->
+      <!-- Begin Validate Description -->
+      <% if (locals.errors) { %>
+        <ul class="alert alert-danger">
+            <% Object.values(errors).forEach(function(error){ %>
+                  <li class="mx-3"><%= error.msg %></li>
+            <% }); %>
+        </ul>
+      <% } %>
+      <!-- End Validate Description -->
+
+      <% if(user.is_admin){ %>
+
+      <!-- Begin table -->
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr class="_center">
+            <th scope="col">ลำดับ</th>
+            <th scope="col">รหัสหมวดหมู่</th>
+            <th scope="col">ชื่อหมวดหมู่</th>
+            <!-- Begin Icon -->
+            <th class="_width_icon" scope="col">แก้ไข</th>
+            <th class="_width_icon" scope="col">ลบ</th>
+            <!-- End Icon -->
+          </tr>
+        </thead>
+        <tbody>
+            <% if(CategoryList){ %>
+            <% Object.values(CategoryList).forEach(function(item,index){ %>
+            <tr>
+              <th class="_width_icon" scope="row"><%= (index)+1 %></th>
+              <td><%= item.code %></td>
+              <td><%= item.title %></td>
+              <!-- Begin Icon Edit / Delete -->    
+              <td class="text-center">
+                <a href="/books/editCategory/<%= item._id %>"><i class="fa fa-pencil-square-o _fs_icon"></i></a>
+              </td>
+
+              <td class="text-center">
+                <a href="/books/deleteCategory/<%= item._id %>"  onclick="return confirm('ต้องการลบหรือไม่ ?')">
+                  <i class="fa fa-trash _fs_icon text-danger"></i>
+                </a>
+              </td> 
+               <!-- End Icon Edit / Delete -->    
+            </tr>
+            <% }) %>
+            <% } %>
+        </tbody>
+      </table>
+      <!-- End Table -->
+
+
+      <!-- Begin Modal Category -->
+      <div class="modal fade" id="ModalCategory" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable _min_w_60">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- Begin Title -->    
+              <h5 class="modal-title" id="staticBackdrop">หมวดหมู่</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <!-- End Title -->    
+            </div>
+             <!-- Begin Form -->
+             <form action="/books/addcategory" method="POST">
+                <!-- Begin Body -->
+                <div class="modal-body">
+                    <!-- Begin Code -->
+                    <div class="form-group">
+                    <label for="">รหัสหมวดหมู่</label>
+                    <input type="text" name="code" class="form-control" id="" required>
+                    </div>
+                    <!-- End Code -->
+                    <!-- Begin Name -->
+                    <div class="form-group">
+                        <label for="">ชื่อหมวดหมู่</label>
+                        <input type="text" name="title" class="form-control" id="" required>
+                    </div>
+                    <!-- End Name -->
+                </div>
+                <!-- End Body -->
+                <!-- Begin Footer --> 
+                <div class="modal-footer">
+                      <input type="submit" class="btn btn-success" name="" id="" value="บันทึก">
+                </div>
+                <!-- End Footer --> 
+            </form>
+            <!-- End Form -->
+          </div>
+        </div>
+      </div>
+      <!-- End Modal Category -->
+
+
+       <!-- Begin Modal Edit Category -->
+       <div class="modal fade" id="ModalEditCategory" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropEdit" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable _min_w_60">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- Begin Title -->    
+              <h5 class="modal-title" id="staticBackdropEdit">หมวดหมู่</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <!-- End Title -->    
+            </div>
+             <!-- Begin Form -->
+             <form action="/books/editcategory" method="POST">
+                <!-- Begin Body -->
+                <div class="modal-body">
+                    <!-- Begin Code -->
+                    <div class="form-group">
+                    <label for="">รหัสหมวดหมู่</label>
+                    <input type="text" name="code" class="form-control" id="" value="<%= Detail.code %>" required>
+                    </div>
+                    <!-- End Code -->
+                    <!-- Begin Name -->
+                    <div class="form-group">
+                        <label for="">ชื่อหมวดหมู่</label>
+                        <input type="text" name="title" class="form-control" value="<%= Detail.title %>" id="" required>
+                    </div>
+                    <!-- End Name -->
+                    <input type="hidden" name="id" value="<%= Detail._id%>">
+                </div>
+                <!-- End Body -->
+                <!-- Begin Footer --> 
+                <div class="modal-footer">
+                      <input type="submit" class="btn btn-success" name="" id="" value="บันทึก">
+                </div>
+                <!-- End Footer --> 
+            </form>
+            <!-- End Form -->
+          </div>
+        </div>
+      </div>
+      <!-- End Modal Category -->
+
+      <% } %>
+
+
+      
+      <!-- ===================================== -->
+      <script>
+         var Is_Edit = "<%- Is_Edit %>" || false;
+         
+         function fn_add(){
+            Is_Edit = false;
+            $("#ModalCategory").modal('show');
+         }
+         if(Is_Edit){
+            Is_Edit = false;
+            $("#ModalEditCategory").modal('show');
+         }
+      </script>
+
+
+  </body>
+</html>

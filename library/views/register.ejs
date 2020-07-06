@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    
+    <h1><%= title %></h1>
+      <!-- Begin Form -->
+      <form action="/auth/register" method="POST" class="needs-validation" novalidate> 
+        <!-- Begin Line #1 -->
+        <div class="form-row">
+          <!-- Begin Fullname -->
+          <div class="col-md-6 mb-3">
+            <label for="fullname">ชื่อ - นามสกุล</label>
+            <input type="text" name="fullname" class="form-control" id="fullname" required>
+            <div class="invalid-feedback">
+               โปรดระบุ
+            </div>
+          </div>
+          <!-- End Fullname -->
+          <!-- Begin Telephone -->
+          <div class="col-md-6 mb-3">
+            <label for="tel">เบอร์มือถือ</label>
+            <input type="text" name="tel" class="form-control" id="tel" required>
+            <div class="invalid-feedback">
+                โปรดระบุ
+            </div>
+          </div>
+          <!-- End Telephone -->
+        </div>
+        <!-- End Line #1 -->
+
+        <!-- Begin Line #2 -->
+        <div class="form-row">
+          <!-- Begin CardID -->
+          <div class="col-md-6 mb-3">
+            <label for="username">หมายเลขบัตรประชาชน</label>
+            <input type="text" name="username" class="form-control" id="username" required>
+            <div class="invalid-feedback">
+                โปรดระบุ
+            </div>
+          </div>
+          <!-- End CardID -->
+          <!-- Begin Gender -->
+          <div class="col-md-3 mb-3">
+            <label for="gender">เพศ</label>
+            <select class="custom-select" name="gender" id="gender" required>
+              <option selected disabled value="">เลือก</option>
+              <option value="ชาย">ชาย</option>
+              <option value="หญิง">หญิง</option>
+            </select>
+            <div class="invalid-feedback">
+                โปรดระบุ
+            </div>
+          </div>
+          <!-- End Gender -->
+        </div>
+        <!-- End Line #2 -->
+
+        <!-- Begin Line #3 -->
+        <div class="form-row">
+          <!-- Begin Password -->
+          <div class="col-md-3 mb-3">
+            <label for="password">รหัสผ่าน</label>
+            <input type="password"  name="password" id="password" maxlength="20" class="form-control" aria-describedby="passwordHelpBlock" required>
+            <small id="passwordHelpBlock" class="form-text text-muted">
+                ต้องมีความยาว 8-20 ตัวอักษร
+            </small>
+            <div class="invalid-feedback">
+                โปรดระบุ
+            </div>
+          </div>
+          <!-- End Password -->
+        </div>
+        <!-- End Line #3 -->
+        <button type="submit" class="btn btn-success _mr_2">ลงทะเบียน</button>
+        <button onclick="goBack()" class="btn btn-primary">มีบัญชีแล้ว ?</button>
+      </form>
+      <!-- End Form -->
+
+      <script>
+      function goBack() {
+        window.history.back();
+      }
+
+        (function() {
+          window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
+        </script>
+
+  </body>
+</html>

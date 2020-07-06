@@ -1,0 +1,57 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+.table thead tr._center{
+  text-align:center;
+}
+
+._width_icon{
+  width:3rem;
+  text-align:center;
+}
+
+
+i._fs_icon{
+  font-size: 1.4rem;
+}
+
+span.navbar-text._manu_name{
+  color:#fff;
+}
+
+._manu_name span{
+  font-size: 1.3rem;
+}
+
+._mr_2{
+  margin-right:2rem;
+}
+
+
+.form-group._pl_0{
+  padding-left:0px;
+}
+
+._r_txt_search{
+  display:flex;
+  justify-content:flex-end;
+}
+
+._min_w_60{
+  min-width:60%;
+}
+
+.table.table-bordered thead tr th{
+  background-color: #d6cae8;
+}
+
+._cp{
+  cursor: pointer;
+}

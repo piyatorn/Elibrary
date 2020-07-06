@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ระบบฐานข้อมูลห้องสมุด</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/login/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/login/util.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/login/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178" action="/auth/login" method="POST">
+					<span class="login100-form-title">
+					   ระบบฐานข้อมูลห้องสมุด
+					</span>
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate="โปรดระบุรหัสผู้ใช้งาน">
+						<input class="input100" type="text" maxlength="13" name="username" placeholder="รหัสผู้ใช้งาน">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "โปรดระบุรหัสผ่าน">
+						<input class="input100" type="password" name="password" placeholder="รหัสผ่าน">
+						<span class="focus-input100"></span>
+					</div>
+					
+					<div class="text-right p-t-13 p-b-23">
+					
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							เข้าสู่ระบบ
+						</button>
+					</div>
+
+					<div class="flex-col-c p-t-170 p-b-40">
+						<span class="txt1 p-b-9">
+							ยังไม่มีบัญชี ?
+						</span>
+
+						<a href="/register" class="txt3">
+							สมัครตอนนี้เลย
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script src="/stylesheets/login/jquery-3.2.1.min.js"></script>
+	<script src="/stylesheets/login/main.js"></script>
+
+</body>
+</html>

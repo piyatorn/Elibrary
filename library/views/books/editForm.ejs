@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ระบบฐานข้อมูลห้องสมุด</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="icon" type="image/png" href="/stylesheets/login/favicon.ico"/>
+  </head>
+  <body>
+      <%- include('../manu') %>
+      <br>
+      <!-- Begin Title -->
+      <h2><%= data %></h2>
+      <!-- End Title -->
+      <!-- Begin Validate Description -->
+      <% if (locals.errors) { %>
+        <ul class="alert alert-danger">
+            <% Object.values(errors).forEach(function(error){ %>
+                  <li class="mx-3"><%= error.msg %></li>
+            <% }); %>
+        </ul>
+      <% } %>
+      <!-- End Validate Description -->
+      <% if(user.is_admin){ %>  
+      <!-- Begin Form -->
+      <form action="/books/update" method="POST">
+        <% if(book){ %>
+          <!-- Begin Code -->
+          <div class="form-group">
+            <label for="">รหัสหนังสือ</label>
+            <input type="text" name="code" class="form-control" id="" value="<%= book.code %>">
+          </div>
+          <!-- End Code -->
+          <!-- Begin Title -->
+          <div class="form-group">
+            <label for="">ชื่อหนังสือ</label>
+            <input type="text" name="title" class="form-control" id="" value="<%= book.title %>">
+          </div>
+          <!-- End Title -->
+          <!-- Begin Author -->
+          <div class="form-group">
+            <label for="">ผู้แต่ง</label>
+            <input type="text" name="author" class="form-control" id="" value="<%= book.author %>">
+          </div>
+          <!-- End Author -->
+          <!-- Begin Category -->
+          <div class="form-group">
+            <label for="">หมวดหมู่</label>
+            <select  name="category" class="form-control">
+              <% if(CategoryList){ %>
+                <% CategoryList.forEach(function(item){ %>
+
+                    <!-- *** ขาด selected -->
+                    <option value="<%=item.title%>"><%=item.title%></option>
+
+
+                <% }); %>
+                <% }else{ %>
+                    <option value="">เลือก</option>
+                <% } %>
+            </select>
+            <input type="hidden" name="id" value="<%= book._id%>">
+          </div>
+          <!-- End Category -->
+          <!-- Begin Amount -->
+          <div class="form-group col-md-2 _pl_0">
+            <label for="">จำนวน(เล่ม)</label>
+            <input type="number" name="all_books" min="0" class="form-control" id="" value="<%= book.all_books %>">
+          </div>
+          <!-- End Amount -->
+          <input type="submit" class="btn btn-success" name="" id="" value="แก้ไขข้อมูล">
+          <% }else{ %>
+            <br>
+            <h3>ไม่พบข้อมูล</h3>
+          <% } %>    
+      </form>
+      <!-- End Form -->
+      <% } %>    
+  </body>
+</html>
